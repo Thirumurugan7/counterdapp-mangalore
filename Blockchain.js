@@ -10,7 +10,7 @@ if (ethereum) {
   isBrowser().web3 = new Web3(isBrowser().web3.currentProvider);
 }
 
-const Address = "0x25b159e74317f7849f9a938497339641da25208e";
+const Address = "Enter your contract address";
 
 export const getCount = async () => {
   const provider =
