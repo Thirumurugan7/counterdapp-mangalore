@@ -1,9 +1,29 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import type { NextPage } from "next";
+import { useState } from "react";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import { increment, decrement, getCount } from "../Blockchain";
 const Home: NextPage = () => {
+  const [count, setCount] = useState(0);
+  const obtainCount = async () => {
+    const res = await getCount();
+    console.log(res);
+    const resInInt = parseInt(res, 10);
+    console.log(resInInt);
+    setCount(resInInt);
+  };
+
+  const increase = async () => {
+    const res = await increment();
+    console.log(res);
+    await obtainCount();
+  };
+  const decrease = async () => {
+    const res = await decrement();
+    console.log(res);
+    await obtainCount();
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -17,59 +37,53 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <ConnectButton />
-
-        <h1 className={styles.title}>
-          Welcome to <a href="">RainbowKit</a> + <a href="">wagmi</a> +{' '}
-          <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
+        <button
+          style={{
+            background: "green",
+            padding: "5px",
+            color: "white",
+            fontSize: "25px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+            marginTop: "20px",
+          }}
+          onClick={increase}
+        >
+          increment
+        </button>
+        <button
+          style={{
+            background: "red",
+            padding: "5px",
+            color: "white",
+            fontSize: "25px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+          }}
+          onClick={decrease}
+        >
+          Decrement
+        </button>
+        <button
+          style={{
+            background: "blue",
+            padding: "5px",
+            color: "white",
+            fontSize: "25px",
+            borderRadius: "10px",
+          }}
+          onClick={obtainCount}
+        >
+          Get Count
+        </button>{" "}
+        <p
+          style={{
+            fontSize: "30px",
+          }}
+        >
+          {" "}
+          {count}
         </p>
-
-        <div className={styles.grid}>
-          <a className={styles.card} href="https://rainbowkit.com">
-            <h2>RainbowKit Documentation &rarr;</h2>
-            <p>Learn how to customize your wallet connection flow.</p>
-          </a>
-
-          <a className={styles.card} href="https://wagmi.sh">
-            <h2>wagmi Documentation &rarr;</h2>
-            <p>Learn how to interact with Ethereum.</p>
-          </a>
-
-          <a
-            className={styles.card}
-            href="https://github.com/rainbow-me/rainbowkit/tree/main/examples"
-          >
-            <h2>RainbowKit Examples &rarr;</h2>
-            <p>Discover boilerplate example RainbowKit projects.</p>
-          </a>
-
-          <a className={styles.card} href="https://nextjs.org/docs">
-            <h2>Next.js Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a
-            className={styles.card}
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-          >
-            <h2>Next.js Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            className={styles.card}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
