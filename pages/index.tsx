@@ -6,24 +6,24 @@ import styles from "../styles/Home.module.css";
 import { increment, decrement, getCount } from "../Blockchain";
 const Home: NextPage = () => {
   const [count, setCount] = useState(0);
-  const obtainCount = async () => {
-    const res = await getCount();
-    console.log(res);
-    const resInInt = parseInt(res, 10);
-    console.log(resInInt);
-    setCount(resInInt);
-  };
+  // const obtainCount = async () => {
+  //   const res = await getCount();
+  //   console.log(res);
+  //   const resInInt = parseInt(res, 10);
+  //   console.log(resInInt);
+  //   setCount(resInInt);
+  // };
 
-  const increase = async () => {
-    const res = await increment();
-    console.log(res);
-    await obtainCount();
-  };
-  const decrease = async () => {
-    const res = await decrement();
-    console.log(res);
-    await obtainCount();
-  };
+  // const increase = async () => {
+  //   const res = await increment();
+  //   console.log(res);
+  //   await obtainCount();
+  // };
+  // const decrease = async () => {
+  //   const res = await decrement();
+  //   console.log(res);
+  //   await obtainCount();
+  // };
   return (
     <div className={styles.container}>
       <Head>
@@ -47,7 +47,6 @@ const Home: NextPage = () => {
             marginBottom: "20px",
             marginTop: "20px",
           }}
-          onClick={increase}
         >
           increment
         </button>
@@ -60,7 +59,6 @@ const Home: NextPage = () => {
             borderRadius: "10px",
             marginBottom: "20px",
           }}
-          onClick={decrease}
         >
           Decrement
         </button>
@@ -72,7 +70,6 @@ const Home: NextPage = () => {
             fontSize: "25px",
             borderRadius: "10px",
           }}
-          onClick={obtainCount}
         >
           Get Count
         </button>{" "}
@@ -82,7 +79,7 @@ const Home: NextPage = () => {
           }}
         >
           {" "}
-          {count}
+          count value
         </p>
       </main>
 
